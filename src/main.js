@@ -12,12 +12,15 @@ const winningCombination = [
 ]
 const fieldElements = document.querySelectorAll('[data-field]');
 const board = document.getElementById('board');
-
-const winningPageTextElement = document.querySelector('winning-page');
+const winningMessageElement = document.getElementById('winningPage')
+const restartBtn = document.getElementById('restartBtn')
+const winningPageTextElement = document.querySelector('[data-winning-page-text]');
 let circleTurn
 
 
 startGame()
+
+restartBtn.addEventListener('click', startGame)
 
 function startGame () {
     circleTurn = false;
@@ -26,17 +29,21 @@ function startGame () {
     funkcja, która nasłuchuje klikniecia na pole - wykonuje funkcje "handleClick" i moze byc uzyta raz na pole
     */
     fieldElements.forEach(field => {
+        field.classList.remove(xClass)
+        field.classList.remove(circleClass)
+        field.removeEventListener('click', handleClick)
         field.addEventListener('click', handleClick, { once: true})
     })
     setBoardHoverClass()
+    winningMessageElement.classList.remove('show')
 }
 
 
 function handleClick(e) {
-    const cell = e.target
+    const field = e.target
     const currentClass = circleTurn ? circleClass : xClass
     // Place mark
-    placeMark(cell, currentClass)
+    placeMark(field, currentClass)
     // Check for win
     if (checkWin(currentClass)) {
         endGame(false)
@@ -50,16 +57,16 @@ function handleClick(e) {
 
 function endGame(draw) {
     if (draw) {
-
+        winningMessageElement.innerHTML = "DRAW!"
     } else {
-        winningPageTextElement.innerHTML = `${circleTurn ? "O" : "X"} Wygrywa!`
+        winningPageTextElement.innerHTML = `${circleTurn ? "`O`" : "`X`"} Wygrywa!`
     } 
-    winningPageTextElement.classList.add('show')
+    winningMessageElement.classList.add('show')
 }
 
 function isDraw() {
-    return [...cellElements].every(cell => {
-        return cell.classList.contains(xClass) || cell.classList.contains(circleClass)
+    return [...fieldElements].every(field => {
+        return field.classList.contains(xClass) || field.classList.contains(circleClass)
     })
 }
 // Place mark
