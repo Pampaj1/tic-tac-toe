@@ -49,15 +49,16 @@ function handleClick(e) {
         endGame(false)
     } else if (isDraw()) { // Check for draw
         endGame(true)
-    } else 
+    } else {
     switchTurns() 
     setBoardHoverClass()
+    }
 }
 
 
 function endGame(draw) {
     if (draw) {
-        winningMessageElement.innerHTML = "DRAW!"
+        winningPageTextElement.innerHTML = "DRAW!"
     } else {
         winningPageTextElement.innerHTML = `${circleTurn ? "`O`" : "`X`"} Wygrywa!`
     } 
