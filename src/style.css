@@ -1,0 +1,184 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--main-color);
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --field-size: 150px;
+    --mark-size: calc(var(--field-size) * .9);
+    --main-color: #374259;
+    --second-color: #545B77;
+}
+
+h1 {
+    margin: 0px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    color: #545B77;
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 50px;
+    filter: drop-shadow(0px 0px 3px var(--second-color));
+}
+
+.line-header {
+    width: 70%;
+    height: 10px;
+    border-radius: 16px;
+    margin-top: 10px;
+    background-color: var(--second-color);
+    filter: drop-shadow(0px 0px 3px var(--second-color));
+}
+
+.board {
+    display: grid;
+    width: 100vw;
+    height: 100%;
+    margin-top: 100px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.field.x::before,
+.field.x::after,
+.field.circle::before,
+.field.circle::after {
+    background-color: black;
+}
+
+.board.x .field:not(.x):not(.circle):hover::before,
+.board.x .field:not(.x):not(.circle):hover::after,
+.board.circle .field:not(.x):not(.circle):hover::before,
+.board.circle .field:not(.x):not(.circle):hover::after {
+    background-color: var(--second-color);
+}
+
+
+.field {
+    width: var(--field-size);
+    height: var(--field-size);
+    border: 2px solid var(--second-color);
+    filter: drop-shadow(0px 0px 5px var(--second-color));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.field.x, 
+.field.circle {
+    cursor: not-allowed;
+}
+
+.field:first-child,
+.field:nth-child(2),
+.field:nth-child(3) {
+    border-top: none;
+}
+
+.field:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.field:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.field:last-child,
+.field:nth-child(7),
+.field:nth-child(8) {
+    border-bottom: none;
+}
+
+.field.x::before,
+.field.x::after,
+.board.x .field:not(.x):not(.circle):hover::before, 
+.board.x .field:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+}
+
+.field.x::before,
+.board.x .field:not(.x):not(.circle):hover::before{
+    transform: rotate(45deg);
+}
+
+.field.x::after, 
+.board.x .field:not(.x):not(.circle):hover::after {
+    transform: rotate(-45deg);
+}
+
+.field.circle::before,
+.field.circle::after,
+.board.circle .field:not(.x):not(.circle):hover::before, 
+.board.circle .field:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.field.circle::before, 
+.board.circle .field:not(.x):not(.circle):hover::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+}
+
+.field.circle::after,
+.board.circle .field:not(.x):not(.circle):hover::after {
+    width: calc(var(--mark-size) * .7);
+    height: calc(var(--mark-size) * .7);
+    background-color: var(--main-color);
+}
+
+.winning-page {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .8);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+}
+
+.winning-page button {
+    border: 1px solid var(--second-color);
+    background-color: var(--main-color);
+    padding: 5px 15px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.winning-page button:hover {
+    
+}
+
+.winning-page.show {
+    display: flex;
+}
