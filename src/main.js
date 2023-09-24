@@ -60,7 +60,7 @@ function endGame(draw) {
     if (draw) {
         winningPageTextElement.innerHTML = "DRAW!"
     } else {
-        winningPageTextElement.innerHTML = `${circleTurn ? "`O`" : "`X`"} Wygrywa!`
+        winningPageTextElement.innerHTML = `${circleTurn ? "`O`" : "`X`"} Won!`
     } 
     winningMessageElement.classList.add('show')
 }
